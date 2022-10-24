@@ -6,8 +6,9 @@ scale_bot = 1.1;          // Scale bottom height by this factor
 thickness = 5;            // Wall thickness
 
 // #8 screw as per: https://www.mcfeelys.com/screw_size_comparisons
-screw_hole_diameter = 0.13 * 25.4;
-tab_length = screw_hole_diameter + thickness;
+screw_hole_diameter = (0.13 * 25.4) * 1.15;
+tab_length = screw_hole_diameter + (1.5 * thickness);
+tab_width = screw_hole_diameter + (2 * thickness);
 
 // Rendering parameters
 $fn = 180;
@@ -59,10 +60,10 @@ module ribs() {
 module tab() {
     difference() {
         union() {
-            translate([-thickness / 2, -tab_length / 2, 0])
-                cube([(tab_length + thickness) / 2, tab_length, thickness]);
+            translate([-thickness / 2, -tab_width / 2, 0])
+                cube([(tab_length + thickness) / 2, tab_width, thickness]);
             translate([tab_length / 2, 0, 0])
-                cylinder(d = tab_length, h = thickness);
+                cylinder(d = tab_width, h = thickness);
         }
         translate([tab_length / 2, 0, -e])
             cylinder(d = screw_hole_diameter, h = thickness + e2);
